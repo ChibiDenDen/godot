@@ -149,6 +149,7 @@ private:
 		TK_IDENTIFIER,
 		TK_BUILTIN_FUNC,
 		TK_SELF,
+		TK_THIS_CLASS,
 		TK_CONSTANT,
 		TK_BASIC_TYPE,
 		TK_COLON,
@@ -206,6 +207,7 @@ private:
 			TYPE_INPUT,
 			TYPE_CONSTANT,
 			TYPE_SELF,
+			TYPE_THIS_CLASS,
 			TYPE_OPERATOR,
 			TYPE_INDEX,
 			TYPE_NAMED_INDEX,
@@ -270,6 +272,13 @@ private:
 
 		SelfNode() {
 			type = TYPE_SELF;
+		}
+	};
+
+	struct ThisClassNode : public ENode {
+
+		ThisClassNode() {
+			type = TYPE_THIS_CLASS;
 		}
 	};
 

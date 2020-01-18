@@ -391,6 +391,10 @@ int GDScriptCompiler::_parse_expression(CodeGen &codegen, const GDScriptParser::
 			}
 			return (GDScriptFunction::ADDR_TYPE_SELF << GDScriptFunction::ADDR_BITS);
 		} break;
+		case GDScriptParser::Node::TYPE_THIS_CLASS: {
+			//return constant
+			return (GDScriptFunction::ADDR_TYPE_CLASS << GDScriptFunction::ADDR_BITS);
+		} break;
 		case GDScriptParser::Node::TYPE_ARRAY: {
 
 			const GDScriptParser::ArrayNode *an = static_cast<const GDScriptParser::ArrayNode *>(p_expression);

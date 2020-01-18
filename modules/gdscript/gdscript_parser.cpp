@@ -616,6 +616,11 @@ GDScriptParser::Node *GDScriptParser::_parse_expression(Node *p_parent, bool p_s
 			SelfNode *self = alloc_node<SelfNode>();
 			tokenizer->advance();
 			expr = self;
+		} else if (tokenizer->get_token() == GDScriptTokenizer::TK_THIS_CLASS) {
+			//constant defined by tokenizer
+			ThisClassNode *this_class = alloc_node<ThisClassNode>();
+			tokenizer->advance();
+			expr = this_class;
 		} else if (tokenizer->get_token() == GDScriptTokenizer::TK_BUILT_IN_TYPE && tokenizer->get_token(1) == GDScriptTokenizer::TK_PERIOD) {
 
 			Variant::Type bi_type = tokenizer->get_token_type();
@@ -5575,6 +5580,10 @@ bool GDScriptParser::_parse_type(DataType &r_type, bool p_can_be_void) {
 				can_index = true;
 				full_name = r_type.native_type;
 			}
+		} break;
+		case GDScriptTokenizer::TK_THIS_CLASS: {
+			r_type.kind = DataType::CLASS;
+			r_type.class_type = current_class;
 		} break;
 		default: {
 			return false;

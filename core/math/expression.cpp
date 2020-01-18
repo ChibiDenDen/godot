@@ -1222,6 +1222,8 @@ Error Expression::_get_token(Token &r_token) {
 						r_token.type = TK_OP_AND;
 					} else if (id == "self") {
 						r_token.type = TK_SELF;
+					} else if (id == "this_class") {
+						r_token.type = TK_THIS_CLASS;
 					} else {
 
 						for (int i = 0; i < Variant::VARIANT_MAX; i++) {
@@ -1484,6 +1486,11 @@ Expression::ENode *Expression::_parse_expression() {
 
 				SelfNode *self = alloc_node<SelfNode>();
 				expr = self;
+			} break;
+			case TK_THIS_CLASS: {
+
+				ThisClassNode *this_class = alloc_node<ThisClassNode>();
+				expr = this_class;
 			} break;
 			case TK_CONSTANT: {
 				ConstantNode *constant = alloc_node<ConstantNode>();
@@ -1958,6 +1965,14 @@ bool Expression::_execute(const Array &p_inputs, Object *p_instance, Expression:
 				return true;
 			}
 			r_ret = p_instance;
+		} break;
+		case Expression::ENode::TYPE_THIS_CLASS: {
+
+			if (!p_instance) {
+				r_error_str = RTR("this_class can't be used because instance is null (not passed)");
+				return true;
+			}
+			r_ret = p_instance->get_class();
 		} break;
 		case Expression::ENode::TYPE_OPERATOR: {
 

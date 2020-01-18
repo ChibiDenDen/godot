@@ -227,6 +227,7 @@ static const _kws _keyword_list[] = {
 	{ GDScriptTokenizer::TK_CF_MATCH, "match" },
 	{ GDScriptTokenizer::TK_CF_PASS, "pass" },
 	{ GDScriptTokenizer::TK_SELF, "self" },
+	{ GDScriptTokenizer::TK_THIS_CLASS, "this_class" },
 	{ GDScriptTokenizer::TK_CONST_PI, "PI" },
 	{ GDScriptTokenizer::TK_CONST_TAU, "TAU" },
 	{ GDScriptTokenizer::TK_WILDCARD, "_" },
@@ -291,6 +292,7 @@ bool GDScriptTokenizer::is_token_literal(int p_offset, bool variable_safe) const
 		case TK_CF_MATCH:
 		case TK_CF_PASS:
 		case TK_SELF:
+		case TK_THIS_CLASS:
 		case TK_CONST_PI:
 		case TK_CONST_TAU:
 		case TK_WILDCARD:

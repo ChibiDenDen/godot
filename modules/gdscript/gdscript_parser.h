@@ -118,6 +118,7 @@ public:
 			TYPE_ARRAY,
 			TYPE_DICTIONARY,
 			TYPE_SELF,
+			TYPE_THIS_CLASS,
 			TYPE_OPERATOR,
 			TYPE_CONTROL_FLOW,
 			TYPE_LOCAL_VAR,
@@ -343,6 +344,10 @@ public:
 
 	struct SelfNode : public Node {
 		SelfNode() { type = TYPE_SELF; }
+	};
+
+	struct ThisClassNode : public Node {
+		ThisClassNode() { type = TYPE_THIS_CLASS; }
 	};
 
 	struct OperatorNode : public Node {
